@@ -25,7 +25,7 @@ services:
       - DB_HOST=db
       - DB_NAME=devdb
       - DB_USER=devuser
-      - DB_PASS-changeme
+      - DB_PASS=changeme
     # tells the app service that it depends on the db service below
     depends_on:
       - db
