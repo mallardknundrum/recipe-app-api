@@ -23,6 +23,10 @@ ARG DEV=false
 RUN python -m venv /py && \
 #   upgrades pip
     /py/bin/pip install --upgrade pip && \
+    # next 3 lines install the dependencies in order to compile from source the psycopg2 thing
+    apk add --update --no-cache postgresql-client && \
+    apk add --update --no-cache --virtual .tmp-build-deps \
+        build-base postgresql-dev musl-dev && \
 #   installs requirements
     /py/bin/pip install -r /tmp/requirements.txt && \
     if [ $DEV = "true" ]; \
@@ -30,6 +34,8 @@ RUN python -m venv /py && \
     fi && \
 #   removes temp directory
     rm -rf /tmp && \
+    # removes dependencies necesary to build the psycopg2 thing
+    apk del .tmp-build-deps && \
 #   adds a user to the image without a password, without a home directory, called django-user
 #   this is safer. its best practice to not use root user. its more secure
     adduser \
