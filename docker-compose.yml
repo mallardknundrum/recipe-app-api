@@ -18,7 +18,9 @@ services:
       - ./app:/app
     # default command run if no alternative is provided (docker-compose run xxx or it goes to default)
     command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+      sh -c "python manage.py wait_for_db &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
     # sets environment vars so that we can access these values in settings.py 
     # to configure the connection to the database
     environment:
