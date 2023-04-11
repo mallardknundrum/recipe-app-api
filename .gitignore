@@ -135,5 +135,6 @@ dmypy.json
 app/.DS_Store
 app/app/.DS_Store
 .DS_Store
+.venv/
 Pipfile
 Pipfile.lock
